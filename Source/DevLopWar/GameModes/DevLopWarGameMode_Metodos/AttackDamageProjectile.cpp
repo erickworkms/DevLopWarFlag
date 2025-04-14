@@ -152,7 +152,7 @@ void ADevLopWarGameMode::AttackDamageProjectile_Implementation(AActor* OwnerProj
 					break;
 				}
 				Territory->IsBlocked = true;
-				Territory->Portal->ShowPortal_Implementation();
+				Territory->Portal->ShowPortal(GameStateServer->GetTeamFlagOwner());
 				EnableObjectivePoints(Territory->TerritoryIndex,Territory->IsBlocked);
 				GetWorldTimerManager().SetTimer(Territory->Timer, Territory, &AObjectiveNPC::GameTimer, 5, false);
 			}

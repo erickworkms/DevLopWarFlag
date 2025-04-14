@@ -18,6 +18,7 @@ APortalObject::APortalObject()
 	NPCLocalReference->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
 	NPCLocalReference->SetCanEverAffectNavigation(false);
 	NPCLocalReference->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	NPCLocalReference->SetIsReplicated(true);
 	
 	Collision = CreateDefaultSubobject<UBoxComponent>(TEXT("Collision"));
 	Collision->bFillCollisionUnderneathForNavmesh = false;
@@ -40,21 +41,24 @@ APortalObject::APortalObject()
 }
 
 
-void APortalObject::ShowPortal_Implementation()
+void APortalObject::ShowPortal(ETeam team)
 {
-	AGameModeBase* GameModeFound = GetWorld()->GetAuthGameMode();
-	ADevLopWarGameMode* GameMode = Cast<ADevLopWarGameMode>(GameModeFound);
-	if (IsValid(GameMode))
-	{
-		NPCLocalReference->SetVisibility(true);
-		SetPortalMaterial(GameMode->GetFlagTeamOwner());
-	}
-	
+	NPCLocalReference->SetVisibility(true);
+	Collision->SetVisibility(true);
+	SetPortalMaterial(team);
+	// AGameModeBase* GameModeFound = GetWorld()->GetAuthGameMode();
+	// ADevLopWarGameMode* GameMode = Cast<ADevLopWarGameMode>(GameModeFound);
+	// if (IsValid(GameMode))
+	// {
+	//
+	// }
+	//
 }
 
-void APortalObject::HidePortal_Implementation()
+void APortalObject::HidePortal()
 {
 	NPCLocalReference->SetVisibility(false);
+	Collision->SetVisibility(false);
 }
 
 void APortalObject::BeginPlay()
@@ -71,7 +75,7 @@ void APortalObject::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLif
 	DOREPLIFETIME(APortalObject, Collision);
 }
 
-void APortalObject::StartCollision(UPrimitiveComponent* OverlappedComp, AActor* DetectedCharacter,
+void APortalObject::StartCollision_Implementation(UPrimitiveComponent* OverlappedComp, AActor* DetectedCharacter,
 						UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep,
 						const FHitResult& SweepResult)
 {

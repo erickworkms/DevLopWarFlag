@@ -183,6 +183,8 @@ void APlayer_Base::CreateCameraConfig()
 		LocalCameraReference->SetStaticMesh(Reference.Object);
 		LocalCameraReference->SetupAttachment(SpringArm, USpringArmComponent::SocketName);
 		LocalCameraReference->SetIsReplicated(true);
+		LocalCameraReference->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+		LocalCameraReference->SetHiddenInGame(true);
 	}
 	AutoPossessPlayer = EAutoReceiveInput::Disabled;
 }

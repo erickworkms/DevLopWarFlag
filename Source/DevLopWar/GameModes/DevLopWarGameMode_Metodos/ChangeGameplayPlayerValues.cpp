@@ -59,6 +59,10 @@ void ADevLopWarGameMode::ChangeTeamFlagOwner_Implementation(ETeam Team)
 {
 	if (IsValid(GameStateServer))
 	{
+		if (Team == ETeam::Clients)
+		{
+			Team = ETeam::Agile;
+		}
 		TeamFlagOwner = Team;
 		GameStateServer->SetTeamFlagOwner(Team);
 	}

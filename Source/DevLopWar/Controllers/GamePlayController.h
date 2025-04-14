@@ -33,7 +33,7 @@ public:
 
 	UPROPERTY(BlueprintReadWrite,Replicated)
 	ABaseHudGameplay* Hud;
-
+		
 	UFUNCTION(Reliable,Client)
 	void ActiveEndGameHud();
 

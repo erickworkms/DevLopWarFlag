@@ -27,10 +27,10 @@ public:
 	UPROPERTY(EditAnywhere,Replicated,meta = (AllowPrivateAccess = "true"))
 	AFlagManager* FlagManager;
 
-	UFUNCTION(Reliable,Server)
-	void ShowPortal();
+	UFUNCTION()
+	void ShowPortal(ETeam team);
 	
-	UFUNCTION(Reliable,Server)
+	UFUNCTION()
 	void HidePortal();
 
 	UFUNCTION(BlueprintImplementableEvent)
@@ -42,7 +42,7 @@ public:
 
 private:
 
-	UFUNCTION()
+	UFUNCTION(Reliable,Server)
 	void StartCollision(UPrimitiveComponent* OverlappedComp, AActor* DetectedCharacter,
 						UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep,
 						const FHitResult& SweepResult);

@@ -41,6 +41,7 @@
 		"WindowsNoEditor",
 		"AllDesktop",
 		"LinuxAArch64NoEditor",
-		"LinuxNoEditor"
+		"LinuxNoEditor",
+		"Windows"
 	]
 }
